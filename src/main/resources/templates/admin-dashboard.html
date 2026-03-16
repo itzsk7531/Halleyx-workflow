@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Admin Dashboard</title>
+    <style>
+        body{
+            margin:0;
+            font-family:Arial, sans-serif;
+            background:#f3f4f6;
+        }
+        .sidebar{
+            width:220px;
+            height:100vh;
+            background:#1f2a3a;
+            position:fixed;
+            color:white;
+        }
+        .sidebar h2{
+            text-align:center;
+            padding:20px 0;
+            border-bottom:1px solid #2f3b4f;
+        }
+        .sidebar ul{
+            list-style:none;
+            padding:0;
+        }
+        .sidebar ul li{
+            padding:15px 25px;
+        }
+        .sidebar ul li a{
+            text-decoration:none;
+            color:white;
+            font-size:16px;
+        }
+        .sidebar ul li:hover{
+            background:#2c3a50;
+        }
+        .logout{
+            color:#ff6b6b !important;
+        }
+        .main{
+            margin-left:220px;
+            padding:40px;
+        }
+        .main h1{
+            margin-bottom:30px;
+        }
+        .cards{
+            display:grid;
+            grid-template-columns:repeat(auto-fit, minmax(250px,1fr));
+            gap:25px;
+        }
+        .card{
+            background:#e9ecef;
+            padding:35px;
+            border-radius:12px;
+            text-align:center;
+            transition:0.2s;
+        }
+        .card h3{
+            margin-bottom:10px;
+            color:#555;
+        }
+        .card p{
+            font-size:32px;
+            font-weight:bold;
+            margin:0;
+        }
+        .card:hover{
+            transform:translateY(-4px);
+            box-shadow:0 8px 16px rgba(0,0,0,0.08);
+        }
+    </style>
+</head>
+<body>
+<div class="sidebar">
+    <h2>Admin</h2>
+    <ul>
+        <li><a href="/admin/dashboard">Dashboard</a></li>
+        <li><a href="/admin/employees">Employees</a></li>
+        <li><a href="/admin/add-employee">Add Employee</a></li>
+        <li><a href="/logout" class="logout">Logout</a></li>
+    </ul>
+</div>
+<div class="main">
+    <h1>Admin Dashboard</h1>
+    <div class="cards">
+        <div class="card">
+            <h3>Total Employees</h3>
+            <p th:text="${employeeCount}"></p>
+        </div>
+        <div class="card">
+            <h3>Total Managers</h3>
+            <p th:text="${managerCount} "></p>
+        </div>
+        <div class="card">
+            <h3>Total CEO</h3>
+            <p th:text="${ceoCount}"></p>
+        </div>
+        <div class="card">
+            <h3>Total Admin</h3>
+            <p th:text="${adminCount}"></p>
+        </div>
+    </div>
+</div>
+</body>
+</html>

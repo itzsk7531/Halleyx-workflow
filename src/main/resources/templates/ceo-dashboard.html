@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+
+    <title>CEO Dashboard</title>
+
+    <style>
+
+        body{
+        margin:0;
+        font-family:Arial;
+        background:#f4f6f9;
+        }
+
+        /* Sidebar */
+
+        .sidebar{
+        width:220px;
+        height:100vh;
+        background:#1f2937;
+        position:fixed;
+        color:white;
+        }
+
+        .sidebar h2{
+        text-align:center;
+        padding:20px;
+        }
+
+        .sidebar a{
+        display:block;
+        padding:15px;
+        color:white;
+        text-decoration:none;
+        }
+
+        .sidebar a:hover{
+        background:#374151;
+        }
+
+        /* Logout red */
+
+        .logout{
+        color:#ff4d4d;
+        font-weight:bold;
+        }
+
+        .logout:hover{
+        background:#3b1f1f;
+        color:#ff4d4d;
+        }
+
+        /* Main */
+
+        .main{
+        margin-left:220px;
+        padding:30px;
+        }
+
+        /* Cards */
+
+        .cards{
+        display:flex;
+        gap:20px;
+        }
+
+        .card{
+        background:white;
+        padding:20px;
+        border-radius:8px;
+        width:220px;
+        box-shadow:0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .number{
+        font-size:30px;
+        font-weight:bold;
+        margin-top:10px;
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+<!-- Sidebar -->
+
+<div class="sidebar">
+
+    <h2>CEO</h2>
+
+    <a href="/ceo/dashboard">Dashboard</a>
+    <a href="/ceo/employees">Employees</a>
+    <a href="/ceo/approvals">Approvals</a>
+    <a href="/logout" class="logout">Logout</a>
+
+</div>
+
+
+<!-- Main -->
+
+<div class="main">
+
+    <h1>CEO Dashboard</h1>
+
+    <div class="cards">
+
+        <div class="card">
+            <h3>Total Employees</h3>
+            <div class="number" th:text="${employeeCount}"></div>
+        </div>
+
+        <div class="card">
+            <h3>Pending Approvals</h3>
+            <div class="number" th:text="${pendingApproval}"></div>
+        </div>
+
+        <div class="card">
+            <h3>Approved Requests</h3>
+            <div class="number" th:text="${approvedCount}"></div>
+        </div>
+
+    </div>
+
+</div>
+
+</body>
+</html>

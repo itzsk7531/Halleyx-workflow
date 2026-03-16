@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+    <title>Employees</title>
+
+    <style>
+
+        body{
+        font-family:Arial;
+        background:#f3f4f6;
+        margin:40px;
+        }
+
+        table{
+        width:100%;
+        border-collapse:collapse;
+        background:white;
+        }
+
+        th,td{
+        padding:12px;
+        border-bottom:1px solid #ddd;
+        text-align:left;
+        }
+
+        th{
+        background:#e9ecef;
+        }
+
+        select{
+        padding:6px;
+        margin-bottom:15px;
+        }
+
+        .delete-btn{
+        background:#ff6b6b;
+        color:white;
+        border:none;
+        padding:6px 12px;
+        cursor:pointer;
+        }
+
+    </style>
+
+    <script>
+
+        function filterRole(){
+
+        let role = document.getElementById("roleFilter").value
+        let rows = document.querySelectorAll("tbody tr")
+
+        rows.forEach(row => {
+
+        let r = row.getAttribute("data-role")
+
+        if(role == "ALL" || r == role){
+        row.style.display = ""
+        }else{
+        row.style.display = "none"
+        }
+
+        })
+
+        }
+
+    </script>
+
+</head>
+
+<body>
+
+<h1>All Employees</h1>
+
+<label>Filter by Role:</label>
+
+<select id="roleFilter" onchange="filterRole()">
+
+    <option value="ALL">All</option>
+    <option value="CEO">CEO</option>
+    <option value="MANAGER">Manager</option>
+    <option value="EMPLOYEE">Employee</option>
+    <option value="ADMIN">Admin</option>
+
+</select>
+
+<table>
+
+    <thead>
+
+    <tr>
+        <th>Emp ID</th>
+        <th>Email</th>
+        <th>Role</th>
+        <th>Department</th>
+        <th>Branch</th>
+        <th>Action</th>
+    </tr>
+
+    </thead>
+
+    <tbody>
+
+    <tr th:each="u : ${users}" th:attr="data-role=${u.role}">
+
+        <td th:text="${u.empId}"></td>
+        <td th:text="${u.email}"></td>
+        <td th:text="${u.role}"></td>
+        <td th:text="${u.department}"></td>
+        <td th:text="${u.branch}"></td>
+
+        <td>
+
+            <a th:href="@{/admin/delete/{id}(id=${u.empId})}"
+               onclick="return confirm('Delete user?')">
+
+                <button class="delete-btn">Delete</button>
+
+            </a>
+
+        </td>
+
+    </tr>
+
+    </tbody>
+
+</table>
+
+</body>
+</html>

@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+
+    <title>Employee - ExpenseFlow</title>
+
+    <style>
+
+        *{
+        margin:0;
+        padding:0;
+        box-sizing:border-box;
+        font-family:"Segoe UI", Arial, sans-serif;
+        }
+
+        body{
+        background:#f4f6fb;
+        }
+
+
+        /* NAVBAR */
+
+        .navbar{
+        display:flex;
+        justify-content:space-between;
+        align-items:center;
+        padding:14px 60px;
+        background:white;
+        box-shadow:0 2px 8px rgba(0,0,0,0.05);
+        }
+
+
+        /* LOGO */
+
+        .logo-area img{
+        height:40px;
+        }
+
+
+        /* NAV LINKS */
+
+        .nav-links{
+        list-style:none;
+        display:flex;
+        gap:40px;
+        align-items:center;
+        }
+
+        .nav-links li a{
+        text-decoration:none;
+        color:#555;
+        font-size:15px;
+        font-weight:500;
+        position:relative;
+        padding-bottom:5px;
+        transition:0.25s;
+        }
+
+
+        /* UNDERLINE HOVER */
+
+        .nav-links li a::after{
+        content:"";
+        position:absolute;
+        left:0;
+        bottom:0;
+        width:0%;
+        height:2px;
+        background:#333;
+        transition:0.25s;
+        }
+
+        .nav-links li a:hover::after{
+        width:100%;
+        }
+
+        .nav-links li a:hover{
+        color:#000;
+        }
+
+
+        /* ACTIVE PAGE */
+
+        .nav-links li a.active::after{
+        width:100%;
+        background:#333;
+        }
+
+
+        /* LOGOUT */
+
+        .nav-links li a.logout{
+        color:#e74c3c;
+        font-weight:600;
+        }
+
+        .nav-links li a.logout::after{
+        background:#e74c3c;
+        }
+
+
+        /* PAGE CONTENT */
+
+        .container{
+        padding:50px 80px;
+        }
+
+        .container h2{
+        font-size:26px;
+        color:#333;
+        margin-bottom:10px;
+        }
+
+        .container p{
+        color:#666;
+        font-size:16px;
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+<nav class="navbar">
+
+    <div class="logo-area">
+        <img th:src="@{/images/logos.png}" alt="logo">
+    </div>
+
+    <ul class="nav-links">
+
+        <li><a class="active" href="/employee/employee-dashboard">Home</a></li>
+
+        <li><a href="/employee/create-expense">Create Expense</a></li>
+
+        <li><a href="/employee/status">Status</a></li>
+
+        <li><a href="/employee/history">Expense History</a></li>
+
+        <li><a class="logout" href="/logout">Logout</a></li>
+
+    </ul>
+
+</nav>
+
+
+<div class="container">
+
+    <h2>Welcome Employee 👋</h2>
+    <p>This is your ExpenseFlow dashboard.</p>
+
+</div>
+
+</body>
+</html>

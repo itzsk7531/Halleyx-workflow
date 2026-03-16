@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+    <title>Expense Status</title>
+
+    <style>
+
+        *{
+        margin:0;
+        padding:0;
+        box-sizing:border-box;
+        font-family:"Segoe UI", Arial, sans-serif;
+        }
+
+        body{
+        background:#f4f6fb;
+        }
+
+
+        /* NAVBAR */
+
+        .navbar{
+        display:flex;
+        justify-content:space-between;
+        align-items:center;
+        padding:14px 60px;
+        background:white;
+        box-shadow:0 2px 8px rgba(0,0,0,0.06);
+        }
+
+        .logo img{
+        height:38px;
+        }
+
+        .nav-links{
+        list-style:none;
+        display:flex;
+        gap:35px;
+        align-items:center;
+        }
+
+        .nav-links li a{
+        text-decoration:none;
+        color:#555;
+        font-size:15px;
+        font-weight:500;
+        position:relative;
+        padding-bottom:4px;
+        }
+
+        .nav-links li a::after{
+        content:"";
+        position:absolute;
+        left:0;
+        bottom:0;
+        width:0%;
+        height:2px;
+        background:#333;
+        transition:0.25s;
+        }
+
+        .nav-links li a:hover::after{
+        width:100%;
+        }
+
+        .nav-links li a.logout{
+        color:#e74c3c;
+        font-weight:600;
+        }
+
+        .nav-links li a.logout::after{
+        background:#e74c3c;
+        }
+
+
+
+
+        .container{
+        padding:50px 80px;
+        display:flex;
+        flex-wrap:wrap;
+        gap:20px;
+        }
+
+
+        /* EXPENSE CARD */
+
+        .card{
+        background:white;
+        padding:20px;
+        width:230px;
+        border-radius:10px;
+        box-shadow:0 6px 20px rgba(0,0,0,0.05);
+        }
+
+        .title{
+        font-size:16px;
+        font-weight:600;
+        margin-bottom:10px;
+        color:#333;
+        }
+
+
+        /* STATUS STYLES */
+
+        .pending{
+        color:#f39c12;
+        font-weight:600;
+<!--        text-shadow:0 0 8px #f39c12;-->
+        }
+
+        .approved{
+        color:#2ecc71;
+        font-weight:600;
+<!--        text-shadow:0 0 8px #2ecc71;-->
+        }
+
+        .rejected{
+        color:#e74c3c;
+        font-weight:600;
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+<nav class="navbar">
+
+    <div class="logo">
+        <img th:src="@{/images/logos.png}" alt="logo">
+    </div>
+
+    <ul class="nav-links">
+        <li><a href="/employee/employee-dashboard">Home</a></li>
+        <li><a href="/employee/create-expense">Create Expense</a></li>
+        <li><a href="/employee/status">Status</a></li>
+        <li><a href="/employee/history">Expense History</a></li>
+        <li><a class="logout" href="/logout">Logout</a></li>
+    </ul>
+
+</nav>
+
+
+<div class="container">
+
+    <div class="card" th:each="exp : ${expenses}">
+
+        <div class="title" th:text="${exp.title}"></div>
+
+        <div th:class="${exp.status.startsWith('PENDING')} ? 'pending' :
+       (${exp.status.startsWith('APPROVED')} ? 'approved' : 'rejected')"
+             th:text="${exp.status.startsWith('PENDING') ? 'PENDING' :
+              (exp.status.startsWith('APPROVED') ? 'APPROVED' : 'REJECTED')}">
+        </div>
+
+    </div>
+
+</div>
+
+</body>
+</html>
