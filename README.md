@@ -172,16 +172,16 @@ http://localhost:8080
 * CEO Approval Dashboard
 * Employee Expense Submission
 * Expense Status Tracking
+*  Email notifications for approvals
+*  404 pages 
 
 ---
 
-## Future Improvements
 
-* Email notifications for approvals
-* Workflow rule customization
-* API support for integrations
-* Audit logging
-* UI improvements
+
+
+
+
 
 
 
