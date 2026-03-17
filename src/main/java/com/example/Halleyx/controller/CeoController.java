@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import com.example.Halleyx.model.Expense;
 import com.example.Halleyx.repository.ExpenseRepository;
 import com.example.Halleyx.service.AuthService;
+import com.example.Halleyx.service.MailService;
 
 @Controller
 public class CeoController {
@@ -19,6 +20,10 @@ public class CeoController {
 
     @Autowired
     private AuthService service;
+
+    // 🔥 ADD THIS
+    @Autowired
+    private MailService mailService;
 
     // CEO DASHBOARD
     @GetMapping("/ceo/dashboard")
@@ -34,6 +39,7 @@ public class CeoController {
 
         return "ceo-dashboard";
     }
+
     @GetMapping("/ceo/employees")
     public String viewEmployees(Model model){
 
@@ -41,6 +47,7 @@ public class CeoController {
 
         return "view-employees";
     }
+
     // CEO APPROVAL PAGE
     @GetMapping("/ceo/approvals")
     public String ceoApprovals(Model model){
@@ -59,8 +66,18 @@ public class CeoController {
         Expense exp = repo.findById(id).orElse(null);
 
         if(exp != null){
+
+            // ✅ FINAL APPROVAL
             exp.setStatus("APPROVED");
             repo.save(exp);
+
+            // 🔥 SEND MAIL HERE
+            mailService.sendApprovalMail(
+                    exp.getEmpId(),
+                    exp.getEmail(),
+                    String.valueOf(exp.getAmount()),
+                    exp.getTitle()
+            );
         }
 
         return "redirect:/ceo/approvals";

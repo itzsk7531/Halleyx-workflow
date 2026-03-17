@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import com.example.Halleyx.model.Expense;
 import com.example.Halleyx.repository.ExpenseRepository;
 import com.example.Halleyx.service.AuthService;
+import com.example.Halleyx.service.MailService; // 🔥 ADD THIS
 
 @Controller
 public class ManagerController {
@@ -19,6 +20,10 @@ public class ManagerController {
 
     @Autowired
     private ExpenseRepository expenseRepo;
+
+    // 🔥 ADD THIS
+    @Autowired
+    private MailService mailService;
 
     // MANAGER DASHBOARD
     @GetMapping("/manager/dashboard")
@@ -63,12 +68,25 @@ public class ManagerController {
         if(expense != null){
 
             if(expense.getAmount() <= 5000){
-                expense.setStatus("APPROVED");
-            }else{
-                expense.setStatus("PENDING_CEO");
-            }
 
-            expenseRepo.save(expense);
+                // ✅ FINAL APPROVAL
+                expense.setStatus("APPROVED");
+                expenseRepo.save(expense);
+
+                // 🔥 SEND MAIL HERE
+                mailService.sendApprovalMail(
+                        expense.getEmpId(),
+                        expense.getEmail(),
+                        String.valueOf(expense.getAmount()),
+                        expense.getTitle()
+                );
+
+            }else{
+
+                // ⏳ SEND TO CEO
+                expense.setStatus("PENDING_CEO");
+                expenseRepo.save(expense);
+            }
         }
 
         return "redirect:/manager/approvals";
